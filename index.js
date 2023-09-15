@@ -5,21 +5,25 @@ const text = require('./const')
 const bot = new Telegraf(process.env.BOT_TOKEN)
 
 bot.start((ctx) => ctx.reply(`Здарова ${ctx.message.from.first_name ? ctx.message.from.first_name : 'незнакомец'}!`))
+bot.command('about', (ctx) => { 
+  ctx.reply(text.abbout)
+});
 bot.help((ctx) => ctx.reply(text.commands))
 bot.command('course', async (ctx) => {
     try {
       await ctx.replyWithHTML('<b>Фархад иди в очко!</b>', Markup.inlineKeyboard([
-        [Markup.button.callback('редакторы', 'btn_1'), Markup.button.callback('тест', 'btn_2')]
+        [Markup.button.callback('Глубже', 'btn_1'), Markup.button.callback('Еще глубже', 'btn_2')]
       ]));
     } catch (e) {
       console.error(e);
     }
   });
+bot.start((ctx) => ctx.reply.console.log([userId]));
 
 // Объект с информацией о каждом участнике
 const participants = {};
 
-// Функция для получения списка лидеров в порядке убывания накопленных очков
+// Функция для получения списка лидеров в порядке убывания 
 function getLeaders() {
   const leaders = Object.entries(participants).map(([userId, participant]) => ({
     userId,
@@ -34,7 +38,7 @@ bot.command('getpoints', (ctx) => {
   const chatId = ctx.chat.id;
   const userId = ctx.from.id;
 
-  // Проверяем, есть ли участник в списке
+  // проверка на наличие в списке
   if (!participants[userId]) {
     participants[userId] = {
       username: ctx.from.username || 'Unknown',
@@ -42,7 +46,7 @@ bot.command('getpoints', (ctx) => {
     };
   }
 
-  // Проверяем прошло ли достаточно времени с момента предыдущего получения очков
+  // на 24
   if (!participants[userId].lastUpdated || (Date.now() - participants[userId].lastUpdated >= 24 * 60 * 60 * 1000)) {
     const points = getRandomPoints();
     participants[userId].points += points;

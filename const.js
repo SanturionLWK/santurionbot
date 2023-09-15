@@ -2,7 +2,12 @@ const commands = `
 /start - Перезапустить бота
 /help - Помощь
 /leaders - Список лидеров
-/get_points Получить очки
-
+/getpoints Получить очки
+/about Описание
 `
 module.exports.commands = commands
+
+const abbout = `
+У меня ты можешь узнать истинную природу своей ориентации, жми не стесняйся!\nНо заметь, получить очки можно только раз в 24 часа,\nда поможет тебе бог рандома!
+`
+module.exports.abbout = abbout
