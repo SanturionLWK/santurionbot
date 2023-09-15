@@ -18,6 +18,8 @@ bot.command('course', async (ctx) => {
       console.error(e);
     }
   });
+
+//нужно сделать так что-бы выдавало ид пользователя.
 bot.start((ctx) => ctx.reply.console.log([userId]));
 
 // Объект с информацией о каждом участнике
